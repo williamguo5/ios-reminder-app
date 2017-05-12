@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		BEDC73B81EC4BF6F0043181A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC73B71EC4BF6F0043181A /* AppDelegate.swift */; };
-		BEDC73BA1EC4BF6F0043181A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC73B91EC4BF6F0043181A /* ViewController.swift */; };
+		BEDC73BA1EC4BF6F0043181A /* tableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC73B91EC4BF6F0043181A /* tableVC.swift */; };
 		BEDC73BD1EC4BF6F0043181A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEDC73BB1EC4BF6F0043181A /* Main.storyboard */; };
 		BEDC73C01EC4BF6F0043181A /* ios_reminder_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BEDC73BE1EC4BF6F0043181A /* ios_reminder_app.xcdatamodeld */; };
 		BEDC73C21EC4BF6F0043181A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDC73C11EC4BF6F0043181A /* Assets.xcassets */; };
 		BEDC73C51EC4BF6F0043181A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEDC73C31EC4BF6F0043181A /* LaunchScreen.storyboard */; };
+		BEDC73CF1EC607FA0043181A /* createVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC73CE1EC607FA0043181A /* createVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BEDC73B41EC4BF6F0043181A /* ios-reminder-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-reminder-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEDC73B71EC4BF6F0043181A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BEDC73B91EC4BF6F0043181A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BEDC73B91EC4BF6F0043181A /* tableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tableVC.swift; sourceTree = "<group>"; };
 		BEDC73BC1EC4BF6F0043181A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BEDC73BF1EC4BF6F0043181A /* ios_reminder_app.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ios_reminder_app.xcdatamodel; sourceTree = "<group>"; };
 		BEDC73C11EC4BF6F0043181A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEDC73C41EC4BF6F0043181A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BEDC73C61EC4BF6F0043181A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEDC73CE1EC607FA0043181A /* createVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = createVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				BEDC73B71EC4BF6F0043181A /* AppDelegate.swift */,
-				BEDC73B91EC4BF6F0043181A /* ViewController.swift */,
+				BEDC73B91EC4BF6F0043181A /* tableVC.swift */,
 				BEDC73BB1EC4BF6F0043181A /* Main.storyboard */,
+				BEDC73CE1EC607FA0043181A /* createVC.swift */,
 				BEDC73C11EC4BF6F0043181A /* Assets.xcassets */,
 				BEDC73C31EC4BF6F0043181A /* LaunchScreen.storyboard */,
 				BEDC73C61EC4BF6F0043181A /* Info.plist */,
@@ -140,8 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEDC73BA1EC4BF6F0043181A /* ViewController.swift in Sources */,
+				BEDC73BA1EC4BF6F0043181A /* tableVC.swift in Sources */,
 				BEDC73C01EC4BF6F0043181A /* ios_reminder_app.xcdatamodeld in Sources */,
+				BEDC73CF1EC607FA0043181A /* createVC.swift in Sources */,
 				BEDC73B81EC4BF6F0043181A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +312,7 @@
 				BEDC73CB1EC4BF6F0043181A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

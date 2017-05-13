@@ -13,10 +13,18 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var reminderArray = [String]()
+    struct reminder {
+        var objectURI : URL
+        var name : String
+    }
+    
+    var reminderArray = [reminder]()
+    
+    var selectedReminderURI = URL(string: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -35,10 +43,14 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         do {
             let results = try context.fetch(fetchRequest)
             
-            if results.count > 0 {
+            if (results.count > 0) {
                 for result in results as! [NSManagedObject] {
                     if let name = result.value(forKey: "name") as? String {
-                        self.reminderArray.append(name)
+                        let object = reminder(objectURI: result.objectID.uriRepresentation(), name: name)
+                        self.reminderArray.append(object)
+                        
+                        print (name)
+                        print (result.objectID.uriRepresentation())
                     }
                     
                     self.tableView.reloadData()
@@ -51,12 +63,24 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = reminderArray[indexPath.row]
+        cell.textLabel?.text = reminderArray[indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reminderArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedReminderURI = reminderArray[indexPath.row].objectURI
+        performSegue(withIdentifier: "toCreateVC", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toCreateVC") {
+            let destinationVC = segue.destination as! createVC
+            destinationVC.chosenReminderURI = selectedReminderURI
+        }
     }
 
     @IBAction func addButtonClicked(_ sender: Any) {

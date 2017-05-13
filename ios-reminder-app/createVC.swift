@@ -16,10 +16,14 @@ class createVC: UIViewController {
     @IBOutlet weak var reminderText: UITextField!
     @IBOutlet weak var addNotesText: UITextView!
     
-
+    var chosenReminderURI = URL(string: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (chosenReminderURI != URL(string: "")) {
+            print(chosenReminderURI)
+        }
 
         // Do any additional setup after loading the view.
     }

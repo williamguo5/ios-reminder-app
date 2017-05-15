@@ -29,11 +29,7 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         
         // set primary key if not exists
-        if (UserDefaults.standard.object(forKey: "reminderPID") == nil) {
-            UserDefaults.standard.set(0, forKey: "reminderPID")
-            UserDefaults.standard.synchronize()
-        }
-//        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        
         retrieveInfo()
     }
     
@@ -68,6 +64,11 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(tableVC.retrieveInfo), name: NSNotification.Name(rawValue: "reminderCreated"), object: nil)
+    }
+
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = reminderArray[indexPath.row].name
@@ -89,6 +90,7 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             print ("deleing reminder with id: \(id)")
             reminderArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+            
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
     
@@ -130,7 +132,6 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.navigationItem.leftBarButtonItem?.title = "Edit"
         } else {
             self.tableView.isEditing = true
-//            sender.title = "Done"
             self.navigationItem.leftBarButtonItem?.title = "Done"
         }
         print ("edit button clicked")
@@ -145,6 +146,7 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }    
     
     @IBAction func addButtonClicked(_ sender: Any) {
+        selectedReminderID = 0
         performSegue(withIdentifier: "toCreateVC", sender: nil)
     }
     

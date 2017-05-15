@@ -33,7 +33,7 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             UserDefaults.standard.set(0, forKey: "reminderPID")
             UserDefaults.standard.synchronize()
         }
-        
+//        self.navigationItem.leftBarButtonItem = self.editButtonItem
         retrieveInfo()
     }
     
@@ -41,6 +41,7 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.reminderArray.removeAll(keepingCapacity: false)
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Reminder")
@@ -82,50 +83,70 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         performSegue(withIdentifier: "toCreateVC", sender: nil)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let id = reminderArray[indexPath.row].id
+            print ("deleing reminder with id: \(id)")
+            reminderArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+    
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Reminder")
+            fetchRequest.predicate = NSPredicate(format: "id = %d", id)
+            fetchRequest.returnsObjectsAsFaults = false
+    
+            do {
+                let results = try context.fetch(fetchRequest)
+    
+                if (results.count > 0) {
+                    for result in results as! [NSManagedObject] {
+                        context.delete(result)
+                    }
+                    try context.save()
+                }
+            } catch {
+                print("Error fetching from coreData")
+            }
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemToMove = reminderArray[sourceIndexPath.row]
+        reminderArray.remove(at: sourceIndexPath.row)
+        reminderArray.insert(itemToMove, at: destinationIndexPath.row)
+    }
+    // helper function to save array order in userdefaults
+    
+    @IBAction func editButtonClicked(_ sender: Any) {
+        
+        if (self.tableView.isEditing){
+            self.tableView.isEditing = false
+            self.navigationItem.leftBarButtonItem?.title = "Edit"
+        } else {
+            self.tableView.isEditing = true
+//            sender.title = "Done"
+            self.navigationItem.leftBarButtonItem?.title = "Done"
+        }
+        print ("edit button clicked")
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toCreateVC") {
             let destinationVC = segue.destination as! createVC
             destinationVC.chosenReminderID = selectedReminderID
         }
-    }
-
+    }    
+    
     @IBAction func addButtonClicked(_ sender: Any) {
         performSegue(withIdentifier: "toCreateVC", sender: nil)
     }
-
-    @IBAction func editButtonClicked(_ sender: Any) {
-//        if (self.tableView.isEditing){
-//            self.tableView.isEditing = false
-////            self.editButtonItem.title = "Edit"
-//        } else {
-//            self.tableView.isEditing = true
-////            self.editButtonItem.title = "Done"
-//        }
-        print ("clear button clicked")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Reminder")
-        fetchRequest.returnsObjectsAsFaults = false
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            
-            if (results.count > 0) {
-                for result in results as! [NSManagedObject] {
-                    context.delete(result)
-                }
-            }
-        } catch {
-            print("Error fetching from coreData")
-        }
-        do {
-            try context.save()
-            self.tableView.reloadData()
-        } catch {
-            print ("Error saving delete operation")
-        }
-
-    }
+    
 }
 

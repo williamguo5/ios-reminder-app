@@ -36,9 +36,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="OB8-bw-5a0">
-                        <barButtonItem key="leftBarButtonItem" title="Clear" id="HUe-HM-xsd">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="FhF-NZ-YOa">
                             <connections>
-                                <action selector="editButtonClicked:" destination="BYZ-38-t0r" id="gwh-vA-Eha"/>
+                                <action selector="editButtonClicked:" destination="BYZ-38-t0r" id="X7P-Ms-z1b"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="W70-a5-UnQ">

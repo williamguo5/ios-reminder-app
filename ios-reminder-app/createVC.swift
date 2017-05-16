@@ -67,16 +67,26 @@ class createVC: UIViewController {
         // new button was clicked, therefore create new object
         if (chosenReminderID == 0) {
             let id : Int
-            if (UserDefaults.standard.object(forKey: "reminderPID") == nil) {
-                id = 0
+            if (UserDefaults.standard.object(forKey: "reminderID") == nil) {
+                id = 1
             } else {
-                id = UserDefaults.standard.object(forKey: "reminderPID") as! Int
+                id = UserDefaults.standard.object(forKey: "reminderID") as! Int
             }
             let newReminder = NSEntityDescription.insertNewObject(forEntityName: "Reminder", into: context)
             newReminder.setValue(reminderText.text, forKey: "name")
             newReminder.setValue(addNotesText.text, forKey: "notes")
             newReminder.setValue(id, forKey: "id")
-            UserDefaults.standard.set((id + 1), forKey: "reminderPID")
+            
+            var order : [Int]
+            if (UserDefaults.standard.object(forKey: "reminderOrder") == nil){
+                order = [Int]()
+            } else {
+                order = UserDefaults.standard.object(forKey: "reminderOrder") as! [Int]
+            }
+            
+            order.append(id)
+            UserDefaults.standard.set(order, forKey: "reminderOrder")
+            UserDefaults.standard.set((id + 1), forKey: "reminderID")
             UserDefaults.standard.synchronize()
             
         } else {

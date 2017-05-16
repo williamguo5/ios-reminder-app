@@ -28,20 +28,31 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.dataSource = self
         tableView.delegate = self
         
+//        UserDefaults.standard.removeObject(forKey: "reminderID")
+//        UserDefaults.standard.removeObject(forKey: "reminderOrder")
         // set primary key if not exists
         
         retrieveInfo()
     }
     
     func retrieveInfo() {
-        self.reminderArray.removeAll(keepingCapacity: false)
+        reminderArray.removeAll()
+        
+//        print ("printing order")
+//        if let orderArray = UserDefaults.standard.object(forKey: "reminderOrder") as? [Int] {
+//            for id in orderArray {
+//                print(id)
+//            }
+//        }
+//        print ("end order")
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
         let context = appDelegate.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Reminder")
         fetchRequest.returnsObjectsAsFaults = false
+        
+        var reminders = [Int:String]()
         
         do {
             let results = try context.fetch(fetchRequest)
@@ -50,18 +61,27 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 for result in results as! [NSManagedObject] {
                     if let id = result.value(forKey: "id") as? Int {
                         let name = result.value(forKey: "name") as? String
-                        let object = reminder(id: id, name: name!)
-                        self.reminderArray.append(object)
-                        print(id)
-                        print(name!)
+                        reminders[id] = name!
+                        
                     }
-                    
-                    self.tableView.reloadData()
                 }
             }
         } catch {
             print("Error fetching from coreData")
         }
+        
+        // inserting in ordering
+        if let reminderOrder = UserDefaults.standard.object(forKey: "reminderOrder") as? [Int] {
+            for id in reminderOrder {
+                let object = reminder(id: id, name: reminders[id]!)
+                reminderArray.append(object)
+                self.tableView.reloadData()
+                print("id is: \(id)")
+                print("name is: \(reminders[id]!)")
+//                print(id)
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,6 +142,12 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let itemToMove = reminderArray[sourceIndexPath.row]
         reminderArray.remove(at: sourceIndexPath.row)
         reminderArray.insert(itemToMove, at: destinationIndexPath.row)
+        if var reminderOrder = UserDefaults.standard.object(forKey: "reminderOrder") as? [Int] {
+            reminderOrder.remove(at: sourceIndexPath.row)
+            reminderOrder.insert(itemToMove.id, at: destinationIndexPath.row)
+            UserDefaults.standard.set(reminderOrder, forKey: "reminderOrder")
+            UserDefaults.standard.synchronize()
+        }
     }
     // helper function to save array order in userdefaults
     

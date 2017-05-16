@@ -16,6 +16,9 @@ class createVC: UIViewController {
     @IBOutlet weak var reminderText: UITextField!
     @IBOutlet weak var addNotesText: UITextView!
     
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
     var chosenReminderID:Int = 0
     
     override func viewDidLoad() {
@@ -49,6 +52,15 @@ class createVC: UIViewController {
                             addNotesText.text = notes
                         } else {
                             reminderText.text = ""
+                        }
+                        
+                        var strDate = ""
+                        if let date = result.value(forKey: "date") as? Date {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.locale = Locale(identifier: "en_AU")
+                            dateFormatter.setLocalizedDateFormatFromTemplate("EdMMM hh:mm a")
+                            strDate = dateFormatter.string(from: date)
+                            dateLabel.text = "Date: \(strDate)"
                         }
                     }
                 }
@@ -103,6 +115,7 @@ class createVC: UIViewController {
                     for result in results as! [NSManagedObject] {
                         result.setValue(reminderText.text, forKey: "name")
                         result.setValue(addNotesText.text, forKey: "notes")
+                        result.setValue(datePicker.date, forKey: "date")
                     }
                 }
             } catch {
@@ -121,6 +134,14 @@ class createVC: UIViewController {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reminderCreated"), object: nil)
         self.navigationController?.popViewController(animated: true)
 
+    }
+    
+    @IBAction func datePickerChanged(_ sender: Any) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_AU")
+        dateFormatter.setLocalizedDateFormatFromTemplate("EdMMM hh:mm a")
+        let strDate = dateFormatter.string(from: datePicker.date)
+        dateLabel.text = "Date: \(strDate)"
     }
     
 

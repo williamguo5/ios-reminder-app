@@ -16,6 +16,7 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     struct reminder {
         var id : Int
         var name : String
+        var date : String
     }
     
     var reminderArray = [reminder]()
@@ -52,7 +53,7 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Reminder")
         fetchRequest.returnsObjectsAsFaults = false
         
-        var reminders = [Int:String]()
+        var reminders = [Int:reminder]()
         
         do {
             let results = try context.fetch(fetchRequest)
@@ -60,8 +61,19 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if (results.count > 0) {
                 for result in results as! [NSManagedObject] {
                     if let id = result.value(forKey: "id") as? Int {
-                        let name = result.value(forKey: "name") as? String
-                        reminders[id] = name!
+                        let name = result.value(forKey: "name") as! String
+                        var strDate = ""
+                        
+                        if let date = result.value(forKey: "date") as? Date {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.locale = Locale(identifier: "en_AU")
+                            dateFormatter.setLocalizedDateFormatFromTemplate("EdMMM hh:mm a")
+                            strDate = dateFormatter.string(from: date)
+                        }
+                        
+                        let object = reminder(id: id, name: name, date: strDate)
+                        reminders[id] = object
+//                        reminders[id] = name!
                         
                     }
                 }
@@ -73,11 +85,10 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // inserting in ordering
         if let reminderOrder = UserDefaults.standard.object(forKey: "reminderOrder") as? [Int] {
             for id in reminderOrder {
-                let object = reminder(id: id, name: reminders[id]!)
-                reminderArray.append(object)
+//                let object = reminder(id: id, name: reminders[id]!)
+                reminderArray.append(reminders[id]!)
                 self.tableView.reloadData()
-                print("id is: \(id)")
-                print("name is: \(reminders[id]!)")
+                print("reminder id is: \(id)")
 //                print(id)
             }
         }
@@ -87,11 +98,12 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(tableVC.retrieveInfo), name: NSNotification.Name(rawValue: "reminderCreated"), object: nil)
     }
-
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: nil)
         cell.textLabel?.text = reminderArray[indexPath.row].name
+        cell.detailTextLabel?.text = reminderArray[indexPath.row].date
+//        cell.detailTextLabel?.text = "Date to go here"
         return cell
     }
     
@@ -149,7 +161,6 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             UserDefaults.standard.synchronize()
         }
     }
-    // helper function to save array order in userdefaults
     
     @IBAction func editButtonClicked(_ sender: Any) {
         

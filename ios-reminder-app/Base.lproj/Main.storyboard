@@ -95,20 +95,43 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5r-jb-EzU">
+                                <rect key="frame" x="28" y="438" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="re1-Ay-WQO">
+                                <rect key="frame" x="28" y="460" width="322" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="8Ws-6r-UxA"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="516639943.76854098">
+                                    <!--2017-05-16 15:05:43 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="G5B-Tg-LdN" eventType="valueChanged" id="lJP-He-ehJ"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="xFE-fW-9Io" secondAttribute="trailing" constant="9" id="1T4-OJ-auc"/>
                             <constraint firstItem="as4-em-uVq" firstAttribute="top" secondItem="gOW-Ik-yE0" secondAttribute="bottom" constant="33" id="6Ej-I6-8qe"/>
+                            <constraint firstItem="re1-Ay-WQO" firstAttribute="leading" secondItem="D5r-jb-EzU" secondAttribute="leading" id="7Ge-lO-GAb"/>
                             <constraint firstItem="as4-em-uVq" firstAttribute="leading" secondItem="xFE-fW-9Io" secondAttribute="leading" id="8L7-if-upX"/>
                             <constraint firstItem="xFE-fW-9Io" firstAttribute="leading" secondItem="kHZ-Xa-DS1" secondAttribute="leading" id="AEQ-Fp-1B3"/>
                             <constraint firstItem="xFE-fW-9Io" firstAttribute="trailing" secondItem="qrp-TP-qWL" secondAttribute="trailing" id="CY5-NX-zI4"/>
                             <constraint firstItem="kHZ-Xa-DS1" firstAttribute="leading" secondItem="qrp-TP-qWL" secondAttribute="leading" id="ESr-e0-4Rm"/>
                             <constraint firstItem="xFE-fW-9Io" firstAttribute="top" secondItem="as4-em-uVq" secondAttribute="bottom" id="GdW-hQ-N7l"/>
+                            <constraint firstItem="O6W-q3-9On" firstAttribute="top" secondItem="re1-Ay-WQO" secondAttribute="bottom" constant="67" id="Gx7-SU-m74"/>
                             <constraint firstItem="O6W-q3-9On" firstAttribute="top" secondItem="qrp-TP-qWL" secondAttribute="bottom" constant="248" id="ITI-jy-g6v"/>
                             <constraint firstItem="kHZ-Xa-DS1" firstAttribute="top" secondItem="xFE-fW-9Io" secondAttribute="bottom" constant="22" id="PHZ-ec-zNm"/>
                             <constraint firstItem="as4-em-uVq" firstAttribute="leading" secondItem="Sp3-LP-lxI" secondAttribute="leadingMargin" constant="12" id="PLJ-dX-toY"/>
+                            <constraint firstItem="re1-Ay-WQO" firstAttribute="top" secondItem="D5r-jb-EzU" secondAttribute="bottom" constant="1" id="T7X-SE-5sr"/>
                             <constraint firstItem="qrp-TP-qWL" firstAttribute="top" secondItem="kHZ-Xa-DS1" secondAttribute="bottom" constant="8" symbolic="YES" id="ToC-Ee-xMn"/>
+                            <constraint firstItem="re1-Ay-WQO" firstAttribute="trailing" secondItem="qrp-TP-qWL" secondAttribute="trailing" id="eiV-Zp-Wwe"/>
+                            <constraint firstItem="re1-Ay-WQO" firstAttribute="leading" secondItem="qrp-TP-qWL" secondAttribute="leading" id="j4P-rP-ZiB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="y8F-5T-JQa">
@@ -121,13 +144,15 @@
                     <connections>
                         <outlet property="addNotesLabel" destination="kHZ-Xa-DS1" id="UOn-fg-jrJ"/>
                         <outlet property="addNotesText" destination="qrp-TP-qWL" id="hEG-2z-VcT"/>
+                        <outlet property="dateLabel" destination="D5r-jb-EzU" id="00I-iu-Lmu"/>
+                        <outlet property="datePicker" destination="re1-Ay-WQO" id="zVn-3w-OPV"/>
                         <outlet property="reminderLabel" destination="as4-em-uVq" id="hLE-Ig-g1w"/>
                         <outlet property="reminderText" destination="xFE-fW-9Io" id="kKI-Vd-qPi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T2K-go-i9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783" y="36"/>
+            <point key="canvasLocation" x="1781.5999999999999" y="35.532233883058474"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Xmf-tl-4ph">

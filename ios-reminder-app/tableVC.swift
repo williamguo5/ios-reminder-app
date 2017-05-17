@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -32,20 +33,17 @@ class tableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        UserDefaults.standard.removeObject(forKey: "reminderID")
 //        UserDefaults.standard.removeObject(forKey: "reminderOrder")
         // set primary key if not exists
-        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            print ("notification is on: \(granted)")
+        }
         retrieveInfo()
     }
     
     func retrieveInfo() {
         reminderArray.removeAll()
         
-//        print ("printing order")
-//        if let orderArray = UserDefaults.standard.object(forKey: "reminderOrder") as? [Int] {
-//            for id in orderArray {
-//                print(id)
-//            }
-//        }
-//        print ("end order")
+        
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext

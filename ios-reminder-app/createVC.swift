@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class createVC: UIViewController {
 
@@ -18,6 +19,11 @@ class createVC: UIViewController {
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
+    
+    @IBOutlet weak var reminderAlarmLabel: UILabel!
+
+    @IBOutlet weak var reminderAlarmDatePicker: UIDatePicker!
     
     var chosenReminderID:Int = 0
     
@@ -116,6 +122,20 @@ class createVC: UIViewController {
                         result.setValue(reminderText.text, forKey: "name")
                         result.setValue(addNotesText.text, forKey: "notes")
                         result.setValue(datePicker.date, forKey: "date")
+                        
+                        // push notification to user
+                        let content = UNMutableNotificationContent()
+                        content.title = NSString.localizedUserNotificationString(forKey: "Reminder", arguments: nil)
+                        content.body = NSString.localizedUserNotificationString(forKey: reminderText.text!, arguments: nil)
+                        content.sound = UNNotificationSound.default()
+//                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                        let alarm = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute ], from: reminderAlarmDatePicker.date)
+                        let trigger = UNCalendarNotificationTrigger(dateMatching: alarm, repeats: false)
+                        let request = UNNotificationRequest(identifier: reminderText.text!, content: content, trigger: trigger)
+                        let center = UNUserNotificationCenter.current()
+                        center.add(request, withCompletionHandler: nil)
+                    
+                        
                     }
                 }
             } catch {
@@ -144,5 +164,14 @@ class createVC: UIViewController {
         dateLabel.text = "Date: \(strDate)"
     }
     
+    @IBAction func alarmDatePickerChanged(_ sender: Any) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_AU")
+        dateFormatter.setLocalizedDateFormatFromTemplate("EdMMM hh:mm a")
+        let strDate = dateFormatter.string(from: reminderAlarmDatePicker.date)
+        reminderAlarmLabel.text = "Reminder Alarm: \(strDate)"
+    }
 
+    @IBAction func removeAlarmBtnClicked(_ sender: Any) {
+    }
 }

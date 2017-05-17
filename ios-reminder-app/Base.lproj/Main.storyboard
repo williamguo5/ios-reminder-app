@@ -89,22 +89,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qrp-TP-qWL">
-                                <rect key="frame" x="28" y="199" width="322" height="220"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qrp-TP-qWL">
+                                <rect key="frame" x="28" y="199" width="322" height="152"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5r-jb-EzU">
-                                <rect key="frame" x="28" y="438" width="45" height="21"/>
+                                <rect key="frame" x="28" y="377" width="45" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="re1-Ay-WQO">
-                                <rect key="frame" x="28" y="460" width="322" height="140"/>
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="re1-Ay-WQO">
+                                <rect key="frame" x="28" y="400" width="322" height="105"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="8Ws-6r-UxA"/>
+                                    <constraint firstAttribute="height" constant="140" id="Fnd-2E-ZtV"/>
                                 </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="516639943.76854098">
                                     <!--2017-05-16 15:05:43 +0000-->
@@ -113,25 +113,47 @@
                                     <action selector="datePickerChanged:" destination="G5B-Tg-LdN" eventType="valueChanged" id="lJP-He-ehJ"/>
                                 </connections>
                             </datePicker>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="kFW-jj-g3H">
+                                <rect key="frame" x="28" y="534" width="322" height="99"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="99" id="NVa-ZC-kP9"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="516721499.26758999">
+                                    <!--2017-05-17 13:44:59 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="alarmDatePickerChanged:" destination="G5B-Tg-LdN" eventType="valueChanged" id="y5E-Et-b10"/>
+                                </connections>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reminder Alarm:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hk1-Ut-FYW">
+                                <rect key="frame" x="28" y="513" width="306" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="xFE-fW-9Io" secondAttribute="trailing" constant="9" id="1T4-OJ-auc"/>
+                            <constraint firstItem="O6W-q3-9On" firstAttribute="top" secondItem="kFW-jj-g3H" secondAttribute="bottom" constant="34" id="2It-Yf-N7i"/>
                             <constraint firstItem="as4-em-uVq" firstAttribute="top" secondItem="gOW-Ik-yE0" secondAttribute="bottom" constant="33" id="6Ej-I6-8qe"/>
-                            <constraint firstItem="re1-Ay-WQO" firstAttribute="leading" secondItem="D5r-jb-EzU" secondAttribute="leading" id="7Ge-lO-GAb"/>
                             <constraint firstItem="as4-em-uVq" firstAttribute="leading" secondItem="xFE-fW-9Io" secondAttribute="leading" id="8L7-if-upX"/>
                             <constraint firstItem="xFE-fW-9Io" firstAttribute="leading" secondItem="kHZ-Xa-DS1" secondAttribute="leading" id="AEQ-Fp-1B3"/>
                             <constraint firstItem="xFE-fW-9Io" firstAttribute="trailing" secondItem="qrp-TP-qWL" secondAttribute="trailing" id="CY5-NX-zI4"/>
                             <constraint firstItem="kHZ-Xa-DS1" firstAttribute="leading" secondItem="qrp-TP-qWL" secondAttribute="leading" id="ESr-e0-4Rm"/>
                             <constraint firstItem="xFE-fW-9Io" firstAttribute="top" secondItem="as4-em-uVq" secondAttribute="bottom" id="GdW-hQ-N7l"/>
-                            <constraint firstItem="O6W-q3-9On" firstAttribute="top" secondItem="re1-Ay-WQO" secondAttribute="bottom" constant="67" id="Gx7-SU-m74"/>
                             <constraint firstItem="O6W-q3-9On" firstAttribute="top" secondItem="qrp-TP-qWL" secondAttribute="bottom" constant="248" id="ITI-jy-g6v"/>
+                            <constraint firstItem="re1-Ay-WQO" firstAttribute="top" secondItem="D5r-jb-EzU" secondAttribute="bottom" constant="2" id="KeX-y5-2Za"/>
+                            <constraint firstItem="re1-Ay-WQO" firstAttribute="leading" secondItem="qrp-TP-qWL" secondAttribute="leading" id="NY6-jm-XJb"/>
                             <constraint firstItem="kHZ-Xa-DS1" firstAttribute="top" secondItem="xFE-fW-9Io" secondAttribute="bottom" constant="22" id="PHZ-ec-zNm"/>
                             <constraint firstItem="as4-em-uVq" firstAttribute="leading" secondItem="Sp3-LP-lxI" secondAttribute="leadingMargin" constant="12" id="PLJ-dX-toY"/>
-                            <constraint firstItem="re1-Ay-WQO" firstAttribute="top" secondItem="D5r-jb-EzU" secondAttribute="bottom" constant="1" id="T7X-SE-5sr"/>
+                            <constraint firstItem="kFW-jj-g3H" firstAttribute="trailing" secondItem="re1-Ay-WQO" secondAttribute="trailing" id="PrD-Fu-zva"/>
+                            <constraint firstItem="O6W-q3-9On" firstAttribute="top" secondItem="re1-Ay-WQO" secondAttribute="bottom" constant="127" id="S4b-Os-qVS"/>
                             <constraint firstItem="qrp-TP-qWL" firstAttribute="top" secondItem="kHZ-Xa-DS1" secondAttribute="bottom" constant="8" symbolic="YES" id="ToC-Ee-xMn"/>
-                            <constraint firstItem="re1-Ay-WQO" firstAttribute="trailing" secondItem="qrp-TP-qWL" secondAttribute="trailing" id="eiV-Zp-Wwe"/>
-                            <constraint firstItem="re1-Ay-WQO" firstAttribute="leading" secondItem="qrp-TP-qWL" secondAttribute="leading" id="j4P-rP-ZiB"/>
+                            <constraint firstItem="re1-Ay-WQO" firstAttribute="leading" secondItem="D5r-jb-EzU" secondAttribute="leading" id="gNM-Pq-6uc"/>
+                            <constraint firstItem="kFW-jj-g3H" firstAttribute="leading" secondItem="re1-Ay-WQO" secondAttribute="leading" id="xtP-vn-rKd"/>
+                            <constraint firstItem="re1-Ay-WQO" firstAttribute="trailing" secondItem="qrp-TP-qWL" secondAttribute="trailing" id="yCx-cG-Shv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="y8F-5T-JQa">
@@ -146,6 +168,8 @@
                         <outlet property="addNotesText" destination="qrp-TP-qWL" id="hEG-2z-VcT"/>
                         <outlet property="dateLabel" destination="D5r-jb-EzU" id="00I-iu-Lmu"/>
                         <outlet property="datePicker" destination="re1-Ay-WQO" id="zVn-3w-OPV"/>
+                        <outlet property="reminderAlarmDatePicker" destination="kFW-jj-g3H" id="JCA-aP-YXs"/>
+                        <outlet property="reminderAlarmLabel" destination="hk1-Ut-FYW" id="jYV-cy-13Q"/>
                         <outlet property="reminderLabel" destination="as4-em-uVq" id="hLE-Ig-g1w"/>
                         <outlet property="reminderText" destination="xFE-fW-9Io" id="kKI-Vd-qPi"/>
                     </connections>
